@@ -1,8 +1,10 @@
 // showUpdatePage.js
 import { BASE_URL } from './config.js';
 import doUpdateAdoption from './doUpdateAdoption.js';
+import { setContent } from './domUtils.js';
 
 export default function showUpdatePage(id) {
+  const container = document.getElementById("content");
   // 1. 先撈出該筆領養紀錄
   axios.get(`${BASE_URL}/index.php?action=getAdoptions`, {
     params: { id }
@@ -53,7 +55,7 @@ export default function showUpdatePage(id) {
           </table>
         </div>
       `;
-      document.getElementById("content").innerHTML = str;
+      setContent(str, container);
 
       // 3. 綁定更新與返回列表
      document.getElementById("doUpdate").onclick = () => doUpdateAdoption();
@@ -61,12 +63,16 @@ export default function showUpdatePage(id) {
         document.getElementById("adopt").dispatchEvent(new Event("click"));
       };
     } else {
-      document.getElementById("content").innerHTML =
-        `<div class="alert-message alert-error">${message || "查無此筆紀錄"}</div>`;
+      setContent(
+        `<div class="alert-message alert-error">${message || "查無此筆紀錄"}</div>`,
+        container
+      );
     }
   })
   .catch(err => {
-    document.getElementById("content").innerHTML =
-      `<div class="alert-message alert-error">讀取失敗：${err.message || err}</div>`;
+    setContent(
+      `<div class="alert-message alert-error">讀取失敗：${err.message || err}</div>`,
+      container
+    );
   });
 }
