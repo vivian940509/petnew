@@ -1,0 +1,18 @@
+{
+  "$schema": "https://raw.githubusercontent.com/composer/composer/main/res/composer-schema.json",
+  "name": "yourname/0505test",
+  "description": "JWT 驗證範例專案",
+  "type": "project",
+  "require": {
+    "firebase/php-jwt": "^6.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/",
+      "App\\Middlewares\\": "app/Middlewares/",
+      "App\\Controllers\\": "app/Controller/",
+      "vendor\\": "vendor/",
+      "App\\Models\\": "app/Models/"
+    }
+  }
+}
